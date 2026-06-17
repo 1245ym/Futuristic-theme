@@ -1,0 +1,101 @@
+command: "echo 'ubersicht matrix rain red'",
+refreshFrequency: 2000000,
+
+style: `/* Container for the widget */
+.matrix-widget {
+    position: fixed;
+    bottom: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    pointer-events: none;
+}
+
+/* Glassy background – dark red terminal look */
+.glass {
+    backdrop-filter: blur(20px);
+    background: rgba(20, 0, 0, 0.35);
+    border-radius: 20px;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.25), 0 8px 30px rgba(0,0,0,0.7);
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    min-height: 80px;
+    overflow: hidden;
+    width: auto;
+    max-width: 90vw;
+}
+
+/* Canvas where the rain falls */
+#matrixCanvas {
+    display: block;
+    border-radius: 10px;
+    background: transparent;
+    width: 600px;
+    height: 60px;
+}`,
+
+render: function() {
+    return `
+        <div class="matrix-widget">
+            <div class="glass">
+                <canvas id="matrixCanvas"></canvas>
+            </div>
+        </div>
+    `;
+},
+
+update: function(output, domEl) {
+    if (!this.initialized) {
+        this.initialized = true;
+        this.startMatrixRain(domEl);
+    }
+},
+
+startMatrixRain: function(domEl) {
+    const canvas = domEl.querySelector('#matrixCanvas');
+    if (!canvas) return;
+
+    canvas.width = 600;
+    canvas.height = 60;
+    const ctx = canvas.getContext('2d');
+
+    // Matrix characters
+    const chars = 'ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    const fontSize = 14;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = Array(columns).fill(0);
+
+    function draw() {
+        // Trail effect with dark red tint
+        ctx.fillStyle = 'rgba(20, 0, 0, 0.1)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#F00'; // bright red
+        ctx.font = fontSize + 'px "Courier New", monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+            const char = chars[Math.floor(Math.random() * chars.length)];
+            const x = i * fontSize;
+            const y = drops[i] * fontSize;
+
+            ctx.fillText(char, x, y);
+
+            if (y > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+
+        requestAnimationFrame(draw);
+    }
+
+    for (let i = 0; i < drops.length; i++) {
+        drops[i] = Math.floor(Math.random() * -canvas.height / fontSize);
+    }
+
+    draw();
+}
