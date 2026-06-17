@@ -1,6 +1,8 @@
-# Futuristic-theme
+### Futuristic‑theme Resources
 
-Clock: https://tracesof.net/uebersicht-widgets/#Time-Craft
-Live wallpaper: https://moewalls.com/sci-fi/matrix-digital-live-wallpaper/
-Live wallpaper app: https://wallspace.app
-ubersicht: https://tracesof.net/uebersicht/
+| Category | Name | URL |
+| :------- | :--- | :-- |
+| **Widget Platform** | Übersicht | [https://tracesof.net/uebersicht/](https://tracesof.net/uebersicht/) |
+| **Clock Widget** | Time Craft | [https://tracesof.net/uebersicht-widgets/#Time-Craft](https://tracesof.net/uebersicht-widgets/#Time-Craft) |
+| **Live Wallpaper** | Matrix Digital Live Wallpaper | [https://moewalls.com/sci-fi/matrix-digital-live-wallpaper/](https://moewalls.com/sci-fi/matrix-digital-live-wallpaper/) |
+| **Live Wallpaper App** | Wallspace | [https://wallspace.app](https://wallspace.app) |
